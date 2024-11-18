@@ -13,6 +13,12 @@ services:
       - 3306:3306
     volumes:
       - ./postgres_data/data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   web:
     container_name: web
     build: .
@@ -20,4 +26,5 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
