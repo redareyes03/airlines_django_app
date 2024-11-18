@@ -1,0 +1,39 @@
+{% load static %}
+
+{% if tickets.count > 0 %}
+    <div class="flex flex-col gap-4 max-h-96 overflow-y-auto px-4 py-1">
+        {% for ticket in tickets %}
+            <a href="{% url 'edit' ticket.id %}">
+                <div
+                        class="p-2 rounded-lg border border-gray-100 transition hover:shadow-lg shadow"
+                >
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-lg"> {{ ticket.fullname }} </span>
+                        <form method="POST" class="z-10" action="{% url 'delete' ticket.id %}">
+                            {% csrf_token %}
+                            <button>
+                                <svg class="w-4 h-4 fill-red-500 dark:text-white" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                      d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                                      clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400">{{ ticket.departure_date }}</p>
+                    </div>
+                    <div class="flex mt-4 gap-2">
+                        <span> {{ ticket.origin }} </span>
+                        <img src="{% static 'airplane.png' %}" class=""/>
+                        <span> {{ ticket.destination }} </span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No tickets are available.</p>
+{% endif %}

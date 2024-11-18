@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=airlines
+      - MYSQL_USER=ruben
+      - MYSQL_PASSWORD=admin
+    ports:
+      - 3306:3306
+    volumes:
+      - ./postgres_data/data:/var/lib/postgresql/data
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db

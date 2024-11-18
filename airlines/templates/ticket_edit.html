@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tickets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}"/>
+</head>
+<body>
+<div class="container mx-auto mt-20">
+    <h1 class="text-3xl font-bold">Welcome to Entropy Airlines</h1>
+    <div class="flex justify-between items-center">
+        <p class="mt-4">Low prices, great destinations</p>
+        <p>Take <span class="font-bold">BLACK FRIDAY</span> deals!!</p>
+    </div>
+
+    <div class="flex gap-4 my-12 justify-between">
+        <div class="w-1/3">
+            <h2 class="text-xl font-semibold mb-8">My tickets</h2>
+            {% include 'partials/tickets.html' %}
+        </div>
+
+        <form method="POST" class="w-1/2 rounded-lg shadow p-6">
+            {% csrf_token %}
+            {% include 'partials/form.html' %}
+
+            <div class="flex gap-3">
+                <a
+                        href="{% url 'index' %}"
+                        class="block text-center w-full font-medium text-white bg-blue-700 rounded-lg px-3 py-1"
+                >
+                    Back to make ticket
+                </a>
+                <button
+                        class="w-full font-medium text-white bg-green-500 rounded-lg px-3 py-1"
+                >
+                    Save information
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
