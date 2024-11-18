@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: mysql
+    container_name: db
     environment:
       - MYSQL_ROOT_PASSWORD=admin
       - MYSQL_DATABASE=airlines
@@ -13,8 +14,9 @@ services:
     volumes:
       - ./postgres_data/data:/var/lib/postgresql/data
   web:
+    container_name: web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "./wait_for_it.sh db:3306 -- python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:
