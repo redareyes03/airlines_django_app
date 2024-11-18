@@ -2,6 +2,8 @@ FROM jenkins/jenkins:lts
 
 USER root
 
+EXPOSE 8080:8000
+
 RUN apt-get update && \
     apt-get -y install apt-transport-https \
     ca-certificates \
@@ -15,6 +17,7 @@ RUN apt-get update && \
     stable" && \
     apt-get update && \
     apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose
+
 
 RUN usermod -aG docker jenkins
 
