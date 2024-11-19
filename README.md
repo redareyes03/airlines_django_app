@@ -48,7 +48,7 @@ https://github.com/redareyes03/airlines_django_app
 Este código que esta en `AirlinesProject/settings.py` esta hardocdeado,
 para hacerlo más práctico, sin embargo, lo recomendable es un archivo de
 variables de entorno, el host es el nombre del contenedor de docker para la base de datos
-````json
+````js
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
