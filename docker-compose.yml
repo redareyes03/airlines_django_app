@@ -22,7 +22,10 @@ services:
   web:
     container_name: web
     build: .
-    command: sh -c "./wait_for_it.sh db:3306 -- python manage.py runserver 0.0.0.0:8000"
+    command: >
+      sh -c "./wait-for-it.sh db:3306 -t 60 -- 
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:
